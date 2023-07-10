@@ -1,0 +1,31 @@
+error: MongoServerError: bad auth : Authentication failed. Error al conectar a la db
+error: ErrorLog originado en ruta de prueba
+fatal: FatalLog originado en ruta de prueba
+fatal: FatalLog originado en ruta de prueba
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Messi\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived Delanteros\n    *description: needs to be a string, recived Goat\n    *code: needs to be a number, recived 1\n    *stock: needs to be a number, recived 3\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived https://pbs.twimg.com/media/Fh75ZipWQAE9q1M.jpg\n    *owner: needs to be a mongoId-string, recived undefined","code":2,"name":"Error al crear producto"}
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Messi\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived delanteros\n    *description: needs to be a string, recived Goat\n    *code: needs to be a number, recived 1\n    *stock: needs to be a number, recived 3\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived https://pbs.twimg.com/media/Fh75ZipWQAE9q1M.jpg\n    *owner: needs to be a mongoId-string, recived undefined","code":2,"name":"Error al crear producto"}
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Messi\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived delanteros\n    *description: needs to be a string, recived Goat\n    *code: needs to be a number, recived abc1\n    *stock: needs to be a number, recived 3\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived https://pbs.twimg.com/media/Fh75ZipWQAE9q1M.jpg\n    *owner: needs to be a mongoId-string, recived undefined","code":2,"name":"Error al crear producto"}
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Messi\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived delanteros\n    *description: needs to be a string, recived Goat\n    *code: needs to be a number, recived 1\n    *stock: needs to be a number, recived 3\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived https://pbs.twimg.com/media/Fh75ZipWQAE9q1M.jpg\n    *owner: needs to be a mongoId-string, recived undefined","code":2,"name":"Error al crear producto"}
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: Cannot set headers after they are sent to the client
+error: Producto no encontrado
+error: undefined
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Juan F. Quintero\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived De\n    *description: needs to be a string, recived undefined\n    *code: needs to be a number, recived undefined\n    *stock: needs to be a number, recived undefined\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived undefined","code":2,"name":"Error al crear producto"}
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Juan F. Quintero\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived Delan\n    *description: needs to be a string, recived undefined\n    *code: needs to be a number, recived undefined\n    *stock: needs to be a number, recived undefined\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived undefined","code":2,"name":"Error al crear producto"}
+error: undefined
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Producto-Test\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived delateros\n    *description: needs to be a string, recived description-test\n    *code: needs to be a number, recived abc-test\n    *stock: needs to be a number, recived 1\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived img-test","code":2,"name":"Error al crear producto"}
+error: undefined {"cause":"One or more product properties were incomplete or not valid.\n    List of requieed properties:\n    *title: needs to be a string, recived Producto-Test\n    *category: needs to be one of [arqueros, defensores, centrocampistas, delanteros], recived delateros\n    *description: needs to be a string, recived description-test\n    *code: needs to be a number, recived abc-test\n    *stock: needs to be a number, recived 1\n    *status: needs to be a string, recived undefined\n    *thumbnail: needs to be a string, recived img-test","code":2,"name":"Error al crear producto"}
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+error: undefined
+error: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+error: undefined
+error: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer

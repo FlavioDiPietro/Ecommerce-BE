@@ -1,0 +1,189 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene todos los productos del catálogo
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron obtenidos correctamente de la db
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Producto"
+        "400":
+          description: Error al obtener los productos del catálogo
+    post:
+      summary: Crea un producto en el catálogo
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createProducto"
+      responses:
+        "200":
+          description: Producto creado satisfactoriamente
+        "400":
+          description: Error al crear producto en catálogo
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto a partir de un id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que se desea solicitar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Producto encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Producto"
+        "400":
+          description: Error al obtener el producto solicitado
+    put:
+      summary: Modifica un producto a partir de su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que se desea modificar
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createProducto"
+      responses:
+        "200":
+          description: Producto editado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Producto"
+        "400":
+          description: Error al obtener el producto solicitado
+    delete:
+      summary: Elimina un producto a partir de su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que se desea eliminar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Producto eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Producto"
+        "400":
+          description: Error al eliminar el producto solicitado
+
+components:
+  schemas:
+    Producto:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id autogenerado por mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        code:
+          type: string
+          description: Código del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Stock/Existencia del producto
+        category:
+          type: string
+          description: Stock/Existencia del producto
+        thumbnail:
+          type: string
+          description: Url de la imagen del producto
+        status:
+          type: boolean
+          description: Disponibilidad del producto
+        owner:
+          type: string
+          description: Referencia al creador del producto
+      example:
+        _id: ObjectId("aosdn89jasdj932032asd")
+        title: Enzo Perez
+        description: "Centrocampista equilibrado"
+        code: Abc01
+        price: 100000
+        stock: 3
+        category: "centrocampistas"
+        thumbnail: http://abcimages.com/enzoPerez
+        status: true
+        owner: Admin
+        password: "$asd98jadsjjj12?123a"
+  requestBodies:
+    createProducto:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        code:
+          type: string
+          description: Código del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Stock/Existencia del producto
+        category:
+          type: string
+          description: Stock/Existencia del producto
+        thumbnail:
+          type: string
+          description: Url de la imagen del producto
+        status:
+          type: boolean
+          description: Disponibilidad del producto
+        owner:
+          type: string
+          description: Referencia al creador del producto
+      example:
+        title: Enzo Perez
+        description: "Centrocampista equilibrado"
+        code: Abc01
+        price: 100000
+        stock: 3
+        category: "centrocampistas"
+        thumbnail: http://abcimages.com/enzoPerez
+        status: true
+        owner: Admin
+        password: "$asd98jadsjjj12?123a"

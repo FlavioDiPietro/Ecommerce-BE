@@ -1,0 +1,210 @@
+paths:
+  /api/carts/:
+    post:
+      summary: Crea un carrito para asociar a un usuario existe
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Emptycart"
+        "400":
+          description: Error al crear el carrito
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito a partir de un id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que se desea solicitar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Carrito encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Cart"
+        "400":
+          description: Error al obtener el carrito solicitado
+    delete:
+      summary: Elimina un carrito a partir de su id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que se desea eliminar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Carrito eliminado exitosamente
+        "400":
+          description: Error al eliminar el carrito solicitado
+  /api/carts/{cid}/{pid}:
+    delete:
+      summary: Elimina un producto en particular (por id) de un carrito en particular(por id)
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito sobre el que se desea buscar el producto a eliminar
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que se desea eliminar del carrito
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Producto eliminado del carrito exitosamente
+        "400":
+          description: Error al eliminar el producto solicitado del carrito
+
+  /api/carts/update:
+    post:
+      summary: Actualiza la cantidad de un producto o lo crea si no existe en el carrito
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateCart"
+      responses:
+        "200":
+          description: Producto agregado satisfactoriamente al carrito
+        "400":
+          description: Error al agregar producto al carrito
+  /api/carts/{cid}/purchase:
+    post:
+      summary:
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/generateTicket"
+      responses:
+        "200":
+          description: Compra generada satisfactoriamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Ticket"
+        "400":
+          description: Error al generar compra
+
+components:
+  schemas:
+    Cart:
+      type: array
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+            description: Id de mongo del carrito
+          productos:
+            type: array
+            items:
+              $ref: "#components/schemas/Producto"
+    Emptycart:
+      type: array
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+            description: Id de mongo del carrito
+          productos:
+            type: array
+            items:
+              type: object
+      example: [{ _id: "ObjectId(a12ejo0d91jdgjnh855nh)", productos: [] }]
+    Ticket:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Código asociado al ticket de la compra
+        purchase_date:
+          type: string
+          description: Fecha de la compra
+        totalAmount:
+          type: number
+          description: Monto total de la compra
+        email:
+          type: string
+          description: email del usuario
+        productsPurchase:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: Id de producto comprado
+              quantity:
+                type: number
+                description: Cantidad comprada del producto
+        productsOutOfStock:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: Id de producto no comprado por falta de stock
+              quantity:
+                type: number
+                description: Cantidad demanda del producto que no fue posible comprar
+      example:
+        {
+          code: abc123,
+          purchase_date: "2023-05-23T10:30:00.000Z",
+          totalAmount: 100000,
+          email: fla@123.com,
+          productsPurchase:
+            [
+              { product: ObjectId("oalsjdlij231r0ghh839vn"), quantity: 3 },
+              { product: ObjectId("lllsjdlij871r0ggg839jk"), quantity: 2 },
+            ],
+          productsOutOfStock:
+            [
+              { product: ObjectId("rfgyjdlijdv1r0ghh8ffd3"), quantity: 4 },
+              { product: ObjectId("78acjp881js09jfqey8hfa"), quantity: 1 },
+            ],
+        }
+  requestBodies:
+    updateCart:
+      type: object
+      properties:
+        cid: string
+        pid: string
+        quantity: number
+      example:
+        cid: ObjectId("asoij1209e0jd190dj1233r")
+        pid: ObjectId("02mc92e9sfsdf8akopi938j")
+        quantity: 5
+    generateTicket:
+      type: object
+      properties:
+        email: string
+      example: { email: fdipietro@123.com }
