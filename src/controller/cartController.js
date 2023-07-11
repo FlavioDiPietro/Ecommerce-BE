@@ -99,7 +99,6 @@ class CartController {
           remainingProducts.push({ item, quantity });
         }
       });
-
       //crea el ticket si hay productos por comprar
       if (productsPurchase.length > 0) {
         const code = Math.random().toString(36).slice(2);
@@ -114,7 +113,10 @@ class CartController {
           productsOutOfStock
         );
         //actualiza el carrito guardando ahora los productos no comprados
-        await Cart.updateProductsFromCart(cid, productsOutOfStock.length ?? []);
+        await Cart.updateProductsFromCart(
+          cid,
+          productsOutOfStock.length ? productsOutOfStock : []
+        );
         //actualiza el stock de los productos comprados
         updatedStockProducts.forEach(async ({ item }) => {
           await Product.updateProduct(item._id, item);

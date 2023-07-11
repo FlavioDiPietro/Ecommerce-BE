@@ -8,7 +8,7 @@ const routerChat = Router();
 routerChat.get(
   "/",
   passportAutenticate("current"),
-  passportAuthorize(["User"]),
+  passportAuthorize(["User", "Premium"]),
   (req, res) => {
     const io = req.app.get("socketio");
     io.on("connection", (socket) => {
