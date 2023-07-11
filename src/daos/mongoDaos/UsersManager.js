@@ -23,6 +23,17 @@ class UserManager {
       throw new Error("Error al buscar usuario", err);
     }
   }
+
+  async getUserById(uid) {
+    try {
+      const usuario = await this.model
+        .findOne({ _id: new Types.ObjectId(uid) })
+        .lean();
+      return usuario;
+    } catch (err) {
+      throw new Error("Error al buscar usuario", err);
+    }
+  }
   async createUser(user) {
     try {
       await this.model.create(user);
@@ -37,6 +48,14 @@ class UserManager {
         { password }
       );
       return updated;
+    } catch (err) {
+      throw new Error("Error al actualizar credenciales de usuario", err);
+    }
+  }
+  async deleteteUser(uid) {
+    try {
+      const deleted = await this.model.findByIdAndDelete(uid);
+      return deleted;
     } catch (err) {
       throw new Error("Error al actualizar credenciales de usuario", err);
     }

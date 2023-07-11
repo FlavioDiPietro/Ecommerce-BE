@@ -1,4 +1,4 @@
-class UserService {
+class SessionService {
   constructor(dao) {
     this.dao = dao;
   }
@@ -6,6 +6,7 @@ class UserService {
     const response = await this.dao.getAllUsers();
     return response;
   }
+  //works with email
   async getUser(email) {
     const response = await this.dao.getUser(email);
     return response;
@@ -24,4 +25,4 @@ class UserService {
   }
 }
 
-module.exports = UserService;
+module.exports = SessionService;

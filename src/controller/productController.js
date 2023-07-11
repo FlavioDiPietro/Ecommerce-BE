@@ -2,6 +2,7 @@ const { Product } = require("../service/index");
 const Error = require("../errors/customError");
 const Errors = require("../errors/errorEnum");
 const { createProductErrorInfo } = require("../errors/infoLogsError");
+const sendMail = require("../utils/sendMail");
 
 class ProductController {
   async getProducts(req, res) {
@@ -99,6 +100,21 @@ class ProductController {
         return res.status(400).json({
           message:
             "No tiene permisos para eliminar este producto, solo productos propios",
+        });
+      }
+      if (role === "Admin" && prod.owner) {
+        await sendMail({
+          promotor: "futbol@ecommerce.com",
+          userMail: prod.owner,
+          subject: "Aviso - Producto eliminado",
+          html: `<div><p>Si ha recibido este mail es porque el producto ${prod.title} -identificador n° ${prod._id} - ha sido eliminado.</p> 
+          <img src='cid:michi'/> </div>`,
+          attachments: [
+            {
+              path: prod.thumbnail,
+              cid: "michi",
+            },
+          ],
         });
       }
       const deleted = await Product.deleteProduct(pid);

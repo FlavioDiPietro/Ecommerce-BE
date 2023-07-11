@@ -19,7 +19,7 @@ class SessionControler {
 
       const token = generateToken(user);
       req.logger.info(`tokenEnLogin: ${token}`);
-      if (!token) res.status(400).send({ message: "Error al loguear" });
+      if (!token) res.status(400).send({ message: "Error al loguearse" });
 
       const conectionTime = new Date().toLocaleString();
       await Session.updateLastConection(email, conectionTime);
@@ -46,15 +46,7 @@ class SessionControler {
       fecha,
       isPremium = false,
     } = req.body;
-    if (
-      !email ||
-      !password ||
-      !nombre ||
-      !apellido ||
-      !edad ||
-      !avatar ||
-      !fecha
-    )
+    if (!email || !password || !nombre || !apellido || !edad || !fecha)
       return res.status(400).send({ message: "Campos incompletos" });
     const usr = await Session.getUser(email);
 

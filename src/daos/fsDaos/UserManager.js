@@ -31,7 +31,7 @@ class UsersManager {
   updateUser = async (email, password) => {
     try {
       const users = await this.getAllUsers();
-      const { find, idx } = await this.getSingleUser(email);
+      const { find, idx } = await this.getUser(email);
       if (find) {
         find.password = password;
         users[idx] = find;
@@ -47,7 +47,7 @@ class UsersManager {
   updateUserCart = async (email, carrito) => {
     try {
       const users = await this.getAllUsers();
-      const { find, idx } = await this.getSingleUser(email);
+      const { find, idx } = await this.getUser(email);
       if (find) {
         find.carrito = carrito;
         users[idx] = find;
@@ -63,7 +63,7 @@ class UsersManager {
   updateUserticket = async (email, ticket) => {
     try {
       const users = await this.getAllUsers();
-      const { find, idx } = await this.getSingleUser(email);
+      const { find, idx } = await this.getUser(email);
       if (find) {
         find.ticket = ticket;
         users[idx] = find;

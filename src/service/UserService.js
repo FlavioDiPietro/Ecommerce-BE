@@ -6,8 +6,9 @@ class UserService {
     const usuario = await this.dao.getAllUsers();
     return usuario;
   }
-  async getUser(email) {
-    const usuario = await this.dao.getSingleUser(email);
+  //works with id
+  async getUser(id) {
+    const usuario = await this.dao.getUserById(id);
     return usuario;
   }
   async createUser(user) {
@@ -20,6 +21,10 @@ class UserService {
   }
   async updateUserCart(id, cid) {
     const usuario = await this.dao.updateUserCart(id, cid);
+    return usuario;
+  }
+  async deleteUser(uid) {
+    const usuario = await this.dao.deleteUser(uid);
     return usuario;
   }
   async updateUserTicket(uid, tid) {

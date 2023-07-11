@@ -21,7 +21,7 @@ router.use("/api/chat", routerChat);
 router.use("/api/mocking", routerMocking);
 router.use("/loggerTest", routerError);
 
-app.post("/upload/:type", uploaderMid, (req, res) => {
+router.post("/upload/:type", uploaderMid, (req, res) => {
   res.status(200).json({
     mensaje: "se a subido con éxito el archivo",
   });
