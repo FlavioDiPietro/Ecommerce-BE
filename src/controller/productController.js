@@ -102,13 +102,14 @@ class ProductController {
             "No tiene permisos para eliminar este producto, solo productos propios",
         });
       }
-      if (role === "Admin" && prod.owner) {
+      const deleted = await Product.deleteProduct(pid);
+      if (deleted !== 0) {
         await sendMail({
           promotor: "futbol@ecommerce.com",
           userMail: prod.owner,
           subject: "Aviso - Producto eliminado",
           html: `<div><p>Si ha recibido este mail es porque el producto ${prod.title} -identificador n° ${prod._id} - ha sido eliminado.</p> 
-          <img src='cid:michi'/> </div>`,
+            <img src='cid:michi'/> </div>`,
           attachments: [
             {
               path: prod.thumbnail,
@@ -116,10 +117,8 @@ class ProductController {
             },
           ],
         });
-      }
-      const deleted = await Product.deleteProduct(pid);
-      if (deleted !== 0) res.status(200).json({ status: "success" });
-      else
+        res.status(200).json({ status: "success" });
+      } else
         res.status(400).json({
           message: "Error al eliminar producto",
         });

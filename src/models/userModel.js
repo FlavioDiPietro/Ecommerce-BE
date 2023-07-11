@@ -49,7 +49,7 @@ const userSchema = Schema({
     ],
   },
   ultimaConexion: {
-    type: String,
+    type: Number,
   },
 });
 

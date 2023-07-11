@@ -21,7 +21,7 @@ class SessionControler {
       req.logger.info(`tokenEnLogin: ${token}`);
       if (!token) res.status(400).send({ message: "Error al loguearse" });
 
-      const conectionTime = new Date().toLocaleString();
+      const conectionTime = Date.now();
       await Session.updateLastConection(email, conectionTime);
       user.ultimaConexion = conectionTime;
       res

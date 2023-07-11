@@ -14,11 +14,7 @@ describe("Testing sessions router", () => {
     edad: 20,
     password: "123",
     avatar: "img-test",
-    fecha: new Date().toLocaleDateString("esp", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
+    fecha: Date.now(),
   };
   it("Should register an user succesfully", async () => {
     const { _body } = await requester.post("/sessions/register").send(userMock);

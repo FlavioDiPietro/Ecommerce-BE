@@ -9,6 +9,7 @@ class CurrentUserDto {
     this.role = user.role;
     this.fecha = user.fecha;
     this.carrito = user.carrito;
+    this.ultimaConexion = user.ultimaConexion;
   }
 }
 

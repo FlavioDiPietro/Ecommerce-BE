@@ -34,11 +34,31 @@ class UsuarioController {
     return res.status(200).send({ message: "succesfull", user: updated });
   }
 
+  async deleteAllInactiveUsers(req, res) {
+    const deleted = [];
+    const usuarios = await User.getAllUsers();
+
+    const shouldDeleteForInactivity = (usrLastConextionOnMls) => {
+      const twoDaysOnMls = 2 * 24 * 60 * 60 * 1000;
+      const twoDaysAgoDateOnMls = new Date().getTime() - twoDaysOnMls;
+      return usrLastConextionOnMls <= twoDaysAgoDateOnMls;
+    };
+    usuarios.forEach(async (usr) => {
+      if (usr.ultimaConexion && shouldDeleteForInactivity(usr.ultimaConexion)) {
+        deleted.push(usr.email);
+        await User.deleteUser(usr._id);
+      }
+    });
+
+    return res.status(200).send({ message: "succesfull", deleted });
+  }
+
   async deleteUser(req, res) {
     const { uid } = req.params;
     const deleted = await User.deleteUser(uid);
     return res.status(200).send({ message: "succesfull", user: deleted });
   }
+
   async updateUserTicket(req, res) {
     const { uid, tid } = req.params;
     const updated = await User.updateUserTicket(uid, tid);

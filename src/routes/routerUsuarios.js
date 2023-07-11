@@ -34,7 +34,14 @@ routerUsuarios.put(
 routerUsuarios.delete(
   "/:uid",
   passportAutenticate("current"),
+  passportAuthorize(["Admin"]),
   usersController.deleteUser
+);
+routerUsuarios.delete(
+  "/",
+  passportAutenticate("current"),
+  passportAuthorize(["Admin"]),
+  usersController.deleteAllInactiveUsers
 );
 
 module.exports = routerUsuarios;

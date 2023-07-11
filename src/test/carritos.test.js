@@ -18,11 +18,7 @@ describe("Testing cart router", () => {
       edad: 20,
       password: "123",
       avatar: "img-test",
-      fecha: new Date().toLocaleDateString("esp", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
+      fecha: Date.now(),
     };
     await requester.post("/sessions/register").send(userMock);
     const { _body } = await requester.post("/sessions/login").send(userMock);
