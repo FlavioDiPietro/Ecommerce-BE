@@ -36,7 +36,7 @@ const userSchema = Schema({
   },
   avatar: {
     type: String,
-    //required: true,
+    required: true,
   },
   carrito: { type: Schema.Types.ObjectId, ref: "carritos" },
   ticket: { type: Schema.Types.ObjectId, ref: "ticket" },

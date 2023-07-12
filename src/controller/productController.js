@@ -34,17 +34,9 @@ class ProductController {
   }
 
   async addProduct(req, res) {
-    const {
-      title,
-      category,
-      price,
-      stock,
-      description,
-      code,
-      thumbnail,
-      status,
-      owner,
-    } = req.body;
+    const thumbnail = req.file.path;
+    const { title, category, price, stock, description, code, status, owner } =
+      req.body;
     try {
       if (
         !title ||
@@ -54,7 +46,8 @@ class ProductController {
         !description ||
         !code ||
         !thumbnail ||
-        !status
+        !status ||
+        !owner
       )
         Error.createError({
           name: "Error al crear producto",
@@ -62,10 +55,10 @@ class ProductController {
           cause: createProductErrorInfo(req.body),
           code: Errors.INVALID_TYPES,
         });
-      const newProd = await Product.addProduct(req.body);
+      const newProd = await Product.addProduct({ ...req.body, thumbnail });
       res.status(200).send({ status: "succes", payload: newProd });
     } catch (err) {
-      req.logger.error(err);
+      req.logger.error(err.message);
       res.status(400).json({
         message: err.message,
       });

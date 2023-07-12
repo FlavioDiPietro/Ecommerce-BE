@@ -3,6 +3,7 @@ const passportAutenticate = require("../middlewares/passportAutenticate");
 const passportIsAlreadyLogged = require("../middlewares/isAlreadyLogged");
 
 const sessionController = require("../controller/sessionController");
+const { uploader } = require("../utils/uploader");
 
 const sessionsRouter = Router();
 
@@ -15,6 +16,7 @@ sessionsRouter.post(
 sessionsRouter.post(
   "/register",
   passportIsAlreadyLogged("current"),
+  uploader.single("avatar"),
   sessionController.register
 );
 

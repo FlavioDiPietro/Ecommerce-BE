@@ -16,7 +16,6 @@ class SessionControler {
       if (!validatePassword(dbUser, password))
         return res.status(400).send({ message: "Password Incorrecta" });
       const user = { ...new LoginUserDto(dbUser) };
-
       const token = generateToken(user);
       req.logger.info(`tokenEnLogin: ${token}`);
       if (!token) res.status(400).send({ message: "Error al loguearse" });
@@ -36,17 +35,25 @@ class SessionControler {
   }
 
   async register(req, res) {
+    const avatar = req.file.path;
     const {
       email,
       password,
       nombre,
       apellido,
       edad,
-      avatar,
       fecha,
       isPremium = false,
     } = req.body;
-    if (!email || !password || !nombre || !apellido || !edad || !fecha)
+    if (
+      !email ||
+      !password ||
+      !nombre ||
+      !avatar ||
+      !apellido ||
+      !edad ||
+      !fecha
+    )
       return res.status(400).send({ message: "Campos incompletos" });
     const usr = await Session.getUser(email);
 
@@ -178,7 +185,9 @@ class SessionControler {
       });
     }
   }
-  logout(req, res) {
+  async logout(req, res) {
+    const lastConextion = Date.now();
+    await Session.updateLastConection(req.user.email, lastConextion);
     req.user = "";
     res.clearCookie(jwt);
     res.status(200).send({ message: "deslogueo exitoso" });
