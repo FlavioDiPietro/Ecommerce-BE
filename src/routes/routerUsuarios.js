@@ -2,6 +2,7 @@ const { Router } = require("express");
 const usersController = require("../controller/usersController");
 const passportAutenticate = require("../middlewares/passportAutenticate");
 const passportAuthorize = require("../middlewares/passportAuthorize");
+const { uploader } = require("../utils/uploader");
 
 const routerUsuarios = Router();
 
@@ -42,6 +43,18 @@ routerUsuarios.delete(
   passportAutenticate("current"),
   passportAuthorize(["Admin"]),
   usersController.deleteAllInactiveUsers
+);
+
+routerUsuarios.post(
+  "/:uid/documents",
+  passportAutenticate("current"),
+  passportAuthorize(["User"]),
+  uploader.fields([
+    { name: "id" },
+    { name: "comproDom" },
+    { name: "comproCuen" },
+  ]),
+  usersController.uploadDocuments
 );
 
 module.exports = routerUsuarios;

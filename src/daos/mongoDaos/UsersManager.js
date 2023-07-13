@@ -112,7 +112,21 @@ class UserManager {
         { ticket: new Types.ObjectId(tid) }
       );
     } catch (err) {
-      throw new Error("Error el ticked del usuario", err);
+      throw new Error("Error al actualizar el ticked del usuario", err);
+    }
+  }
+
+  async updateUserDocuments(uid, documents) {
+    try {
+      const result = await this.model.findOneAndUpdate(
+        { _id: new Types.ObjectId(uid) },
+        { documents },
+        { new: true }
+      );
+      return result;
+    } catch (err) {
+      console.log(err.message);
+      throw new Error("Error actualizar documentos del usuario", err);
     }
   }
 }

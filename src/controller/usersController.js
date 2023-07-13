@@ -68,7 +68,13 @@ class UsuarioController {
   async toogleUserRole(req, res) {
     try {
       const { uid } = req.params;
-      const { role } = await User.getUser(uid);
+      const { role, documents } = await User.getUser(uid);
+      if (role === "Premium" && documents?.length !== 3) {
+        return res.status(400).send({
+          message:
+            "Error, documentación incompleta para solicitar solicitud premium",
+        });
+      }
       const newRole = role === "User" ? "Premium" : "User";
       const newUser = await User.updateUserRole(uid, newRole);
 
@@ -83,6 +89,43 @@ class UsuarioController {
         return res
           .status(400)
           .send({ message: "Error al modificar membresía" });
+      }
+    } catch (err) {
+      return res.status(400).send({ message: "Error al modificar membresía" });
+    }
+  }
+  async uploadDocuments(req, res) {
+    try {
+      const { uid } = req.params;
+      const documents = [];
+      const { id, comproDom, comproCuen } = req.files;
+
+      id &&
+        documents.push({ nombre: "Identificación", referencia: id[0].path }),
+        comproDom &&
+          documents.push({
+            nombre: "Comprobante de Domicilio",
+            referencia: comproDom[0].path,
+          });
+      comproCuen &&
+        documents.push({
+          nombre: "Comprobante de Cuenta",
+          referencia: comproCuen[0].path,
+        });
+
+      const result = await User.updateUserDocuments(uid, documents);
+      if (result) {
+        const message =
+          documents.length === 3
+            ? "Documentación solicitada completa. Ya puede requerir su membresía Premium"
+            : "Documentación cargada parcialmente. Debe completarla para solictar la membrespia Premium";
+        return res
+          .status(200)
+          .send({ message, isUpgradeable: documents.length === 3 });
+      } else {
+        return res
+          .status(400)
+          .send({ message: "Error al cargar documentación" });
       }
     } catch (err) {
       return res.status(400).send({ message: "Error al modificar membresía" });

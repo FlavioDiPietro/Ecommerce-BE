@@ -36,15 +36,7 @@ class SessionControler {
 
   async register(req, res) {
     const avatar = req.file.path;
-    const {
-      email,
-      password,
-      nombre,
-      apellido,
-      edad,
-      fecha,
-      isPremium = false,
-    } = req.body;
+    const { email, password, nombre, apellido, edad, fecha } = req.body;
     if (
       !email ||
       !password ||
@@ -62,11 +54,10 @@ class SessionControler {
         message: "Usuario ya registrado",
       });
     }
-    const role = isPremium
-      ? "Premium"
-      : email === adminEmail && password === adminPassword
-      ? "Admin"
-      : "User";
+
+    const role =
+      email === adminEmail && password === adminPassword ? "Admin" : "User";
+
     const user = {
       nombre,
       apellido,
