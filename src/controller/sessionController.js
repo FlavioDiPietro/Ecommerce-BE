@@ -30,12 +30,13 @@ class SessionControler {
         })
         .send({ message: "Logueado exitosamente", user, token });
     } catch (err) {
+      console.log(err.message);
       res.status(400).send({ message: "Error al loguear" });
     }
   }
 
   async register(req, res) {
-    const avatar = req.file.path;
+    const avatar = req.file?.path;
     const { email, password, nombre, apellido, edad, fecha } = req.body;
     if (
       !email ||
@@ -44,7 +45,8 @@ class SessionControler {
       !avatar ||
       !apellido ||
       !edad ||
-      !fecha
+      !fecha ||
+      !avatar
     )
       return res.status(400).send({ message: "Campos incompletos" });
     const usr = await Session.getUser(email);
